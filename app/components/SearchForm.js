@@ -22,7 +22,7 @@ export default function SearchForm({ query, setQuery, handleSearch, loading }) {
       </form>
       
       <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-        <p>Try: "A sci-fi movie with time travel" or "Comedy movies about weddings"</p>
+        <p>Try: &quot;A sci-fi movie with time travel&quot; or &quot;Comedy movies about weddings&quot;</p>
       </div>
     </div>
   );

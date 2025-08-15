@@ -1,25 +1,17 @@
 import connectDB from "@/lib/database";
-import { pipeline } from "@huggingface/transformers";
 import Movie from "@/models/movie.model"
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
-        const { question, limit = 10 } = await request.json();
+        const { embeddings, limit = 10 } = await request.json();
         
-        if (!question || typeof question !== 'string') {
-            return NextResponse.json(
-                { error: 'Invalid question format. Please provide a text query.' },
-                { status: 400 }
-            );
-        }
+       // console.log(embeddings)
 
         const resultLimit = parseInt(limit);
         const validLimit = [5, 10].includes(resultLimit) ? resultLimit : 5;
         
-        const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-        const query = await embedder(question, { pooling: 'mean', normalize: true });
-        const queryEmbedding = Array.from(query.data);
+        
 
         await connectDB();
 
@@ -28,7 +20,7 @@ export async function POST(request) {
                 $vectorSearch: {
                     index: 'vector_index',
                     path: 'embedding',
-                    queryVector: queryEmbedding,
+                    queryVector: embeddings,
                     numCandidates: 100,
                     limit: validLimit
                 }

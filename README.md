@@ -1,6 +1,7 @@
 # MovieReco - AI-Powered Movie Recommendation App
 
 MovieReco is an AI-powered movie recommendation application built with Next.js that uses vector embeddings to provide semantic search capabilities for finding movies based on natural language queries.
+https://movie-reco-p0tq.onrender.com
 
 ## Features
 

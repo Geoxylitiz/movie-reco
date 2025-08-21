@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import SearchForm from './components/SearchForm';
 import MovieCard from './components/MovieCard';
+import embedFUNC from '@/lib/xenova';
 
 export default function Home() {
   const [query, setQuery] = useState('');
@@ -19,13 +20,8 @@ export default function Home() {
     setError(null);
     
     try {
-      const response = await fetch('/api/embed', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question: query }),
-      });
+
+      const response = await embedFUNC(query);
       
       if (!response.ok) {
         throw new Error('Failed to fetch recommendations');

@@ -49,3 +49,8 @@ export async function POST(request) {
         );
     }
 }
+
+
+export async function GET(req){
+    console.log("PINGED");
+}

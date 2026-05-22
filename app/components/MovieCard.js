@@ -1,44 +1,46 @@
 'use client';
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({ movie, index = 0 }) {
+  const rank = String(index + 1).padStart(2, '0');
+
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-      <div className="p-6">
-        <div className="flex justify-between items-start">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white">{movie.Title}</h3>
-          <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded">
-            {movie.releaseYear}
-          </span>
+    <article className="group rounded-[var(--radius-md)] border border-[var(--color-rule)] bg-[var(--color-paper)] p-4 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--color-accent),var(--color-rule)_45%)]">
+      <div className="mb-4 flex items-start justify-between gap-4">
+        <div>
+          <p className="font-mono text-xs text-[var(--color-accent)]">{rank}</p>
+          <h3 className="mt-1 text-xl font-black leading-tight text-[var(--color-ink)]">{movie.Title}</h3>
         </div>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-          <span className="font-medium">Director:</span> {movie.Director}
-        </p>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-          <span className="font-medium">Genre:</span> {movie.Genre}
-        </p>
-        {movie.Cast && (
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
-            <span className="font-medium">Cast:</span> {movie.Cast}
-          </p>
-        )}
-        <div className="mt-4">
-          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3">
-            {movie.Plot || "No plot available"}
-          </p>
-        </div>
-        {movie.Wiki && (
-          <div className="mt-4">
-            <a
-              href={movie.Wiki}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm font-medium"
-            >
-              Learn more →
-            </a>
-          </div>
-        )}
+        <span className="shrink-0 rounded-full border border-[var(--color-rule)] px-2.5 py-1 text-xs text-[var(--color-ink-2)]">
+          {movie.releaseYear || 'Unknown'}
+        </span>
       </div>
-    </div>
+
+      <dl className="grid gap-2 border-y border-[var(--color-rule)] py-3 text-sm text-[var(--color-ink-2)]">
+        <div className="grid grid-cols-[4.5rem_1fr] gap-3">
+          <dt className="text-[var(--color-muted)]">Director</dt>
+          <dd>{movie.Director || 'Unknown'}</dd>
+        </div>
+        <div className="grid grid-cols-[4.5rem_1fr] gap-3">
+          <dt className="text-[var(--color-muted)]">Genre</dt>
+          <dd>{movie.Genre || 'Unknown'}</dd>
+        </div>
+      </dl>
+
+      <p className="mt-4 line-clamp-4 text-sm leading-6 text-[var(--color-ink-2)]">
+        {movie.Plot || 'No plot available'}
+      </p>
+
+      {movie.Wiki && (
+        <a
+          href={movie.Wiki}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Learn more about ${movie.Title}`}
+          className="mt-4 inline-flex text-sm font-bold text-[var(--color-accent)] hover:text-[var(--color-focus)]"
+        >
+          Learn more
+        </a>
+      )}
+    </article>
   );
 }

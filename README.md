@@ -51,6 +51,7 @@ Create a `.env.local` file in the root directory with the following variables:
 
 ```
 MONGODB_URI=your_mongodb_connection_string
+GEMINI_API=your_gemini_api_key
 ```
 
 Note: Your MongoDB instance must have a vector index set up on the `embedding` field of the `movies` collection.
@@ -60,7 +61,8 @@ Note: Your MongoDB instance must have a vector index set up on the `embedding` f
 1. Enter a natural language query describing the type of movie you're looking for
 2. The system will analyze your query and convert it to a vector embedding
 3. MongoDB's vector search will find the most semantically similar movies
-4. Results are displayed in order of relevance
+4. Gemini receives the retrieved movie context and generates a recommendation
+5. Results are displayed with the AI explanation and matching movie cards
 
 Example queries:
 - "A sci-fi movie with time travel"
